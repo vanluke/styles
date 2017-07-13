@@ -1,0 +1,32 @@
+{
+	"compilerOptions": {
+		"outDir": "./build",
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"module": "commonjs",
+		"experimentalDecorators": true,
+		"target": "es6",
+		"jsx": "react",
+		"lib": ["es2015",
+			"es2015.promise",
+			"dom",
+			"es2017"
+		],
+		"types" : [
+			"node",
+			"koa",
+			"koa-router",
+			"convict",
+			"jest",
+			"koa-mount",
+			"koa-json"
+		]
+	},
+	"include": [
+		"./server/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"!node_modules/@types"
+	]
+}

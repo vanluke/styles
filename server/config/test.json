@@ -1,0 +1,6 @@
+{
+	"version": "0",
+	"host": "localhost",
+	"port": "1337",
+	"passpharse": "server"
+}

@@ -36,6 +36,38 @@ const config = convict({
 	  format: '*',
 	  default: '',
 	  env: 'passpharse',
+	},
+	db: {
+		driver: {
+			doc: 'driver',
+		  format: '*',
+		  default: '',
+		  env: 'driver',
+		},
+		user: {
+			doc: 'user',
+		  format: '*',
+		  default: '',
+		  env: 'user',
+		},
+		password: {
+			doc: 'password',
+		  format: '*',
+		  default: '',
+		  env: 'password',
+		},
+		host: {
+			doc: 'host',
+		  format: '*',
+		  default: '',
+		  env: 'host',
+		},
+		name: {
+			doc: 'name',
+			format: '*',
+			default: '',
+			env: 'name',
+		},
 	}
 });
 

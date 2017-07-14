@@ -2,5 +2,12 @@
 	"version": "0",
 	"host": "localhost",
 	"port": "4443",
-	"passpharse": "server"
+	"passpharse": "server",
+	"db": {
+		"driver": "mongodb",
+		"user": "TheAppWithTheStyle",
+		"password": "app",
+		"host": "@ds053140.mlab.com:53140",
+		"name": "blog"
+	}
 }

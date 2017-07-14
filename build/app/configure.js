@@ -6,6 +6,7 @@ const cors = require("koa-cors");
 const routes_1 = require("../routes");
 const app_1 = require("./app");
 const enforceHttps = require("koa-sslify");
+const login_1 = require("../authentication/login");
 const app_config_1 = require("../config/app-config");
 const error_handler_1 = require("../middleware/error.handler");
 const listen_1 = require("../middleware/listen");
@@ -15,6 +16,7 @@ const endpoint = `/api/v${version}`;
 app_1.default.use(enforceHttps());
 app_1.default.use(json());
 app_1.default.use(cors());
+login_1.default(app_1.default);
 app_1.default.use(mount(endpoint, routes_1.default.routes()));
 error_handler_1.default(app_1.default);
 listen_1.default({

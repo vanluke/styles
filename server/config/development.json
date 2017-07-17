@@ -9,5 +9,12 @@
 		"password": "app",
 		"host": "@ds053140.mlab.com:53140",
 		"name": "blog"
+	},
+	"authentication": {
+		"driver": "mongodb",
+		"user": "TheAppWithTheStyle",
+		"password": "app",
+		"host": "@ds161042.mlab.com:61042",
+		"name": "users"
 	}
 }

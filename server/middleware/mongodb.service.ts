@@ -2,12 +2,17 @@ import {MongoClient, ObjectId} from './mongodb';
 import * as assert from 'assert';
 import config from '../config/app-config';
 
-const db = config.get('db');
-const uri =
+export const db = config.get('db');
+export const auth = config.get('authentication');
+
+export const uri =
 	`${db.driver}://${db.user}:${db.password}${db.host}/${db.name}`;
 
-export const connect = (cb: Function, params: any) => new Promise((resolve, reject) => {
-  MongoClient.connect(uri, (err, db) => {
+export const uriAuth =
+	`${auth.driver}://${auth.user}:${auth.password}${auth.host}/${auth.name}`;
+
+export const connect = connectionStrong => (cb: Function) => (params: any) => new Promise((resolve, reject) => {
+  MongoClient.connect(connectionStrong, (err, db) => {
 		assert.equal(null, err);
 
     cb(db, params)

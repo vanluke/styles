@@ -11,11 +11,11 @@ export const uri =
 export const uriAuth =
 	`${auth.driver}://${auth.user}:${auth.password}${auth.host}/${auth.name}`;
 
-export const connect = connectionStrong => (cb: Function) => (params: any) => new Promise((resolve, reject) => {
+export const connect = connectionStrong => (cb: Function) => (...params: any[]) => new Promise((resolve, reject) => {
   MongoClient.connect(connectionStrong, (err, db) => {
 		assert.equal(null, err);
 
-    cb(db, params)
+    cb.apply(null, [db, ...params])
     .then((result) => {
       db.close();
       resolve(result);
@@ -26,10 +26,11 @@ export const connect = connectionStrong => (cb: Function) => (params: any) => ne
   });
 });
 
-export const get = (db: any, collectionName: string) => db.collection(collectionName).find().toArray();
+export const getDocuments = (db: any, collectionName: string) => db.collection(collectionName).find().toArray();
 
 export const update = (db, item, collectionName) => {
 	const id = new ObjectId(item._id);
+	delete item._id;
   return new Promise((resolve, reject) => {
     db.collection(collectionName)
     .update({_id: id}, {
@@ -71,4 +72,11 @@ export const create = (db: any, item: any, collectionName: string) => new Promis
       const response = appendId(item, results);
       resolve(response);
     });
-  });
+	});
+
+export const getDocument = (db: any, tripId, collectionName: string) => new Promise((resolve, reject) => {
+	const objectId = new ObjectId(tripId);
+	db.collection(collectionName).findOne({
+		_id: objectId,
+	}, (err, doc) => (err ? reject(err) : resolve(doc)));
+});

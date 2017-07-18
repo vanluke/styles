@@ -1,6 +1,5 @@
 import * as jwt from 'koa-jwt';
 import * as jsonwebtoken from 'jsonwebtoken';
-import * as parse from 'co-body';
 import * as bcrypt from 'bcrypt';
 import {connect, uriAuth} from '../middleware/mongodb.service';
 import {appendId} from '../middleware/mongodb.service';

@@ -103,6 +103,7 @@
     "convict": "^4.0.0",
     "jsonwebtoken": "^7.4.1",
     "koa": "^2.3.0",
+    "koa-body": "^2.3.0",
     "koa-cors": "0.0.16",
     "koa-json": "^2.0.2",
     "koa-jwt": "^3.2.2",

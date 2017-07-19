@@ -80,3 +80,9 @@ export const getDocument = (db: any, tripId, collectionName: string) => new Prom
 		_id: objectId,
 	}, (err, doc) => (err ? reject(err) : resolve(doc)));
 });
+
+export const findBy = (db: any, value: any, propName: string, collectionName: string) => new Promise((resolve, reject) => {
+	db.collection(collectionName).findOne({
+		[propName]: value,
+	}, (err, doc) => (err ? reject(err) : resolve(doc)));
+});

@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:server": "npm run clean:server && node_modules/.bin/tsc --p tsconfig.server.json && npm run copy:keys",
     "use:node": "nvm use v7.8.0",
+    "dev:server": "node --inspect ./build",
     "start:server": "node ./build",
     "clean:server": "node_modules/.bin/rimraf build/",
     "copy:keys": "node_modules/.bin/copyfiles -u 1 server/keys/* build/ && node_modules/.bin/copyfiles -u 1 server/authentication/secret/* build/"
@@ -108,13 +109,15 @@
     "koa-json": "^2.0.2",
     "koa-jwt": "^3.2.2",
     "koa-mount": "^3.0.0",
+    "koa-req-validator": "^0.2.0",
     "koa-router": "^7.2.1",
     "koa-sslify": "^2.1.2",
     "koa-static": "^4.0.1",
     "mongodb": "^2.2.30",
     "redux": "^3.7.1",
     "redux-observable": "^0.14.1",
-    "seamless-immutable": "^7.1.2"
+    "seamless-immutable": "^7.1.2",
+    "validator": "^8.0.0"
   },
   "jest": {
     "setupFiles": [

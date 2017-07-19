@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import {connect, uriAuth} from '../middleware/mongodb.service';
 import {appendId} from '../middleware/mongodb.service';
 import {getKey} from './load-keys';
+import {IUser, ApplicationUser} from './ApplicationUser';
 
 const SALT = bcrypt.genSaltSync(10);;
 export const dbSource = connect(uriAuth);
@@ -31,17 +32,23 @@ export const insertUser = (db, user) => new Promise((resolve, reject) =>
 		})
 );
 
-export const getUser = (db, {username, password}) => new Promise((resolve, reject) =>
-	 db.collection('user').findOne({username, password}, (err, user) =>
+export const getUser = (db, {username}) => new Promise((resolve, reject) =>
+	 db.collection('user').findOne({username}, (err, user) =>
 	 	 (err ? reject(err) : resolve(user)),
 	));
 
 export const authUser = async ({username, password}) => {
 	try {
-		return await dbSource(getUser)({
+		const dbUser = <IUser>(await dbSource(getUser)({
 			username,
-			password: bcrypt.hashSync(password, SALT),
-		});
+		}));
+		const isPasswordCorrect = await bcrypt.compare(password, dbUser.password);
+		if(!isPasswordCorrect) {
+			throw {
+				message: 'Passwrod or username is not correct',
+			}
+		}
+		return new ApplicationUser(dbUser);
 	} catch(e) {
 		console.log(e);
 		throw e;

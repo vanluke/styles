@@ -6,13 +6,14 @@ import {
 	deleteDocument,
 	getDocuments,
 	getDocument,
+	findBy,
 } from '../middleware/mongodb.service';
-
 export interface ITrip {
 	name: string;
 	description: string;
 	participants: string[];
 	createdAt: Date;
+	_id: string;
 }
 
 export const dbSource = connect(uri);
@@ -29,3 +30,9 @@ export const handleDelete = async (tripId: string) => await dbSource(deleteDocum
 export const handleGet = async (tripId: string) => tripId
 ? await dbSource(getDocument)(tripId, tripsCollectionName)
 : await dbSource(getDocuments)(tripsCollectionName);
+
+export const isUniqTripName = async (name: string) => {
+	const result = <ITrip>(await dbSource(findBy)(name, 'name', tripsCollectionName));
+	return !result || !result._id;
+}
+

@@ -10,7 +10,7 @@ export async function loginRoute(ctx: any, next: any) {
   if (!ctx.url.match(/^\/api\/login/)) {
     return await next();
 	}
-	const claims = await co(ctx);
+	const claims = ctx.request.body;
 	const user = await authUser(claims);
 	if (user) {
 		const token = await createToken(claims);
@@ -23,7 +23,7 @@ export async function signUpRoute(ctx: any, next: any) {
   if (!ctx.url.match(/^\/api\/signup/)) {
     return await next();
 	}
-	const claims = await co(ctx);
+	const claims = ctx.request.body;
 	const user = await createUser(claims);
 	return constructResponse(404)(ctx, {user})
 }

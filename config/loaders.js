@@ -70,9 +70,10 @@ export const js = {
     'babel-loader', {
       options: {
         babelrc: false,
-        presets: [['es2017', 'es2015', {
+        presets: [['es2015', {
             modules: false
-          }],
+					}],
+					'es2017',
           'react',
           'stage-2'
         ]
@@ -83,14 +84,14 @@ export const js = {
   exclude: /node_modules/,
 };
 
-export const ts = {
-	test: /\.tsx?$/,
-	use: {
-		'awesome-typescript-loader': {
+// export const ts = {
+// 	test: /\.tsx?$/,
+// 	use: {
+// 		'awesome-typescript-loader': {
 
-		}
-	}
-};
+// 		}
+// 	}
+// };
 
 export const jsSourceMap = {
 	test: /\.js$/,
@@ -133,6 +134,6 @@ export const woffLoader = makeFileLoader('woff');
 export const ttfLoader = makeFileLoader('ttf');
 export const jpgLoader = makeFileLoader('jpg');
 
-export default [jsSourceMap, eslint, ts, js, json, sass,
+export default [jsSourceMap, eslint, js, json, sass,
   svgLoader, eotLoader, woffLoader,
   ttfLoader, jpgLoader];

@@ -21,11 +21,11 @@ const nodeLibs = [
 ];
 const entry = {
   polyfills: ['babel-polyfill', 'react-hot-loader/patch'],
-  vendor: ['mori', 'react', 'react-dom', 'react-redux',
+  vendor: ['react', 'react-dom', 'react-redux',
     'react-router',
     'redux',
     'redux-observable',
-    'rxjs',
+    //'rxjs',
     'superagent',
   ],
   main: process.env.NODE_ENV !== 'dev'

@@ -6,9 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:server": "npm run clean:server && node_modules/.bin/tsc --p tsconfig.server.json && npm run copy:keys",
+    "lint:css": "node_modules/.bin/stylelint './client/**/*.js'",
     "use:node": "nvm use v7.8.0",
     "dev:server": "node --inspect ./build",
     "start:server": "node ./build",
+    "start:client": "node_modules/.bin/NODE_ENV=development node_modules/.bin/webpack-dev-server --port=3000 --inline --hot",
     "clean:server": "node_modules/.bin/rimraf build/",
     "copy:keys": "node_modules/.bin/copyfiles -u 1 server/keys/* build/ && node_modules/.bin/copyfiles -u 1 server/authentication/secret/* build/"
   },
@@ -62,6 +64,7 @@
     "eslint": "^4.1.1",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-config-stylelint": "^7.0.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-loader": "^1.8.0",
     "eslint-plugin-babel": "^4.1.1",
@@ -90,6 +93,9 @@
     "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.18.2",
+    "stylelint": "^8.0.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-processor-styled-components": "^0.2.1",
     "typescript": "^2.4.1",
     "typescript-eslint-parser": "^4.0.0",
     "url-loader": "^0.5.9",
@@ -99,6 +105,7 @@
     "webpack-hot-middleware": "^2.18.1"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "bcrypt": "^1.0.2",
     "co-body": "^5.1.1",
     "convict": "^4.0.0",
@@ -114,9 +121,17 @@
     "koa-sslify": "^2.1.2",
     "koa-static": "^4.0.1",
     "mongodb": "^2.2.30",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.2",
     "redux": "^3.7.1",
     "redux-observable": "^0.14.1",
+    "rxjs": "^5.4.2",
     "seamless-immutable": "^7.1.2",
+    "styled-components": "^2.1.1",
+    "superagent": "^3.5.2",
     "validator": "^8.0.0"
   },
   "jest": {

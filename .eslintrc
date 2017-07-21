@@ -9,7 +9,7 @@
 		"babel",
 		"json"
 	],
-	"extends": "airbnb",
+	"extends": ["airbnb", "stylelint"],
 	"parser": "babel-eslint",
 	"parserOptions": {
 		"ecmaFeatures": {

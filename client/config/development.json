@@ -1,0 +1,8 @@
+{
+	"src": {
+		"assets": "assets",
+		"fonts": "assets/fonts"
+	},
+	"fontName": "PTS",
+	"containerId": "container"
+}

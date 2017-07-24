@@ -1,10 +1,11 @@
 import path from 'path';
 import loaders from './config/loaders';
 import getPlugins from './config/plugins';
+import './config/env';
 
 const pkg = require('./package.json');
-const ENV = process.env.NODE_ENV || 'dev';
-const DEV = ENV === 'dev';
+const ENV = process.env.NODE_ENV || 'development';
+const DEV = ENV === 'development';
 const PROD = ENV === 'production';
 
 const plugins = getPlugins({
@@ -12,13 +13,7 @@ const plugins = getPlugins({
   DEV,
   PROD,
 });
-const nodeLibs = [
-  'co-body',
-  'convict',
-  'jwt-decode',
-  'koa',
-  'superagent',
-];
+
 const entry = {
   polyfills: ['babel-polyfill', 'react-hot-loader/patch'],
   vendor: ['react', 'react-dom', 'react-redux',
@@ -26,7 +21,7 @@ const entry = {
     'redux',
     'redux-observable',
     //'rxjs',
-    'superagent',
+   // 'superagent',
   ],
   main: process.env.NODE_ENV !== 'dev'
     ? ['./client/index.js']

@@ -56,6 +56,7 @@ export const LoginFieldset = styled.p`
 `;
 
 export const LoginLabel = styled.label`
+	background-image: ${props => props.labelType ? `url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-${props.labelType}.svg)` : 'none'};
 	font-size: .9rem;
 	display: inline-block;
 	position: absolute;

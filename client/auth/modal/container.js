@@ -15,6 +15,7 @@ export const ModalContainer = ({
 	isLoginVisible,
 	isVisible,
 	switchState,
+	onAfterAction,
 }) => (<ModalComponent
 	onLogin={onLogin}
 	onSignup={onSignup}
@@ -37,12 +38,22 @@ export const mapStateToProps = (state, props) => ({
 	isSignupVisible: state.authReducer.isSignupVisible,
 	isLoginVisible: state.authReducer.isLoginVisible,
 	isVisible: props.isVisible,
+	afterLogin: props.afterLogin,
+	afterSignup: props.afterSignup,
 });
 
 export const mapDispatchToProps = dispatch => ({
-	onLogin: data => dispatch(loginStart(data)),
-	onSignup: data => dispatch(signup(data)),
+	onLogin: (data, cb) => dispatch(loginStart({...data, cb})),
+	onSignup: (data, cb) => dispatch(signup({...data, cb})),
 	switchState: st => dispatch(switchTab(st)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalContainer);
+export const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+	...stateProps,
+	...ownProps,
+	...dispatchProps,
+	onLogin: data => dispatchProps.onLogin(data, stateProps.afterLogin),
+	onSignup: data => dispatchProps.onSignup(data, stateProps.afterSignup),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ModalContainer);

@@ -5,7 +5,7 @@ import {
 	LoginContainer,
 	LoginForm,
 	LoginFieldset,
-	LoginEmailLabel,
+	LoginLabel,
 	LoginPasswordLabel,
 	LoginUsernameLabel,
 	LoginInput,
@@ -25,7 +25,7 @@ export const FormField = ({
 	label,
 	input,
 }) => (<LoginFieldset>
-	<LoginEmailLabel htmlFor={id}>{label}</LoginEmailLabel>
+	<LoginLabel labelType={type} htmlFor={id}>{label}</LoginLabel>
 	<LoginInput
 		fullWidth={fullWidth}
 		hasPadding={hasPadding}

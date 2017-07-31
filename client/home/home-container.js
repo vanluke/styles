@@ -13,7 +13,17 @@ export default class Home extends Component {
 	}
 
 	openModal() {
-		this.setState((prevState, props) => ({isModalVisible: true}))
+		this.setState((prevState, props) => ({isModalVisible: true}));
+	}
+
+	onLogin = () => {
+		console.log('onLogin');
+		this.setState((prevState, props) => ({ isModalVisible: false }));
+	}
+
+	onSignup = () => {
+		console.log('onSignup');
+		this.setState((prevState, props) => ({ isModalVisible: false }));
 	}
 
 	render() {
@@ -23,7 +33,11 @@ export default class Home extends Component {
 			/>
 			<button onClick={() => this.openModal()}>Open</button>
 			Welcome!
-			<Modal isVisible={this.state.isModalVisible} />
+			<Modal
+				afterLogin={this.onLogin}
+				afterSignup={this.onSignup}
+				isVisible={this.state.isModalVisible}
+			/>
 		</div>);
 	}
 }

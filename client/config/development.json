@@ -4,7 +4,8 @@
 		"fonts": "assets/fonts"
 	},
 	"apiRoutes": {
-		"rootApi": "https://localhost:4443/api/v0",
+		"rootApi": "https://localhost:4443/api",
+		"version": "v0",
 		"token": "login",
 		"register": "signup"
 	},

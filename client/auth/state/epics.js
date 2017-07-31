@@ -17,9 +17,15 @@ export const loginFails = createAction(LOGIN_FAILS);
 
 export const login = (action$, store, {authService}) =>
    action$.ofType(LOGIN)
-		.mergeMap((action) => authService.getToken(action)
-			.catch(error => loginFails(error))
-			.map(response => loginSuccess(response)));
+		.mergeMap(action => authService.getToken(action)
+			.catch((error) => {
+				action.payload.cb(error);
+				return loginFails(error);
+			})
+			.map((response) => {
+				action.payload.cb(response);
+				return loginSuccess(response);
+			}));
 
 export const signupStart = createAction(SIGNUP);
 export const signupSuccess = createAction(SIGNUP_SUCCESS);
@@ -27,8 +33,14 @@ export const signupFails = createAction(SIGNUP_FAILS);
 
 export const signup = (action$, store, {authService}) =>
    action$.ofType(LOGIN)
-		.mergeMap((action) => authService.createUser(action)
-			.catch(error => signupFails(error))
-			.map(response => signupSuccess(response)));
+		.mergeMap(action => authService.createUser(action)
+			.catch((error) => {
+				action.payload.cb(error);
+				return signupFails(error);
+			})
+			.map((response) => {
+				action.payload.cb(response);
+				return signupSuccess(response);
+			}));
 
 export const switchTab = createAction(SWITCH_TAB);

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {HomeWrapper} from './home-wrapper';
 import NavBar from 'nav-bar';
-import Modal from 'modal';
+import Modal from 'auth/modal';
 
 export default class Home extends Component {
 	constructor(props) {

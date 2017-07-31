@@ -3,7 +3,7 @@ import {createLogger} from 'redux-logger';
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from 'reducer';
 import rootEpic from 'epic';
-import {authService} from 'auth/service';
+import authService from 'auth/service';
 import en from './dev-tools-extenstion';
 
 const loggerMiddleware = createLogger();

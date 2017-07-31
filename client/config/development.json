@@ -3,6 +3,11 @@
 		"assets": "assets",
 		"fonts": "assets/fonts"
 	},
+	"apiRoutes": {
+		"rootApi": "https://localhost:4443/api/v0",
+		"token": "login",
+		"register": "signup"
+	},
 	"fontName": "PTS",
 	"containerId": "container"
 }

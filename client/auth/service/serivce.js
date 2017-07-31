@@ -1,9 +1,9 @@
-import {ajaxPost} from 'rxjs/observable/dom/ajax';
+import {ajax} from 'rxjs/observable/dom/ajax';
 import config from 'config/config';
 
 export const authService = {
 	getToken(user) {
-		return ajaxPost(`${config.rootApi}/${config.apiRoutes.token}`, user, {
+		return ajax.post(`${config.apiRoutes.rootApi}/${config.apiRoutes.token}`, user, {
 			'Content-Type': 'application/x-www-form-urlencoded',
 		});
 	}

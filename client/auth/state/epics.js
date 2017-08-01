@@ -22,10 +22,14 @@ export const login = (action$, store, {authService}) =>
 				action.payload.cb(error);
 				return loginFails(error);
 			})
-			.map((response) => {
+			.map(({response}) => {
 				action.payload.cb(response);
-				return loginSuccess(response);
-			}));
+				return response.token;
+			})
+			.map(response => authService.saveTokenToSessionStorage(response))
+			.map(response => authService.decodeToken(response))
+			.map(user => loginSuccess(user))
+			);
 
 export const signupStart = createAction(SIGNUP);
 export const signupSuccess = createAction(SIGNUP_SUCCESS);

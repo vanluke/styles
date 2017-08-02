@@ -11,7 +11,11 @@ export const dbSource = connect(uriAuth);
 
 export const createToken = async claims =>
   await jsonwebtoken.sign({
-	    name: claims.username,
+			name: claims.username,
+			email: claims.email,
+			dataOfBirth: claims.dataOfBirth,
+			group: claims.group,
+			createdAt: claims.createdAt,
 	    iat: Math.floor(Date.now() / 1000) - 30 },
 	    getKey(),
 	    { expiresIn: '1d',

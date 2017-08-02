@@ -28,8 +28,13 @@ export async function loginRoute(ctx: any, next: any) {
 export async function signUpRoute(ctx: any, next: any) {
   if (ctx.url.match(/^\/api\/signup/)) {
     const claims = ctx.request.body;
-		const user = await createUser(claims);
-		return constructResponse(404)(ctx, {user})
+		await createUser({
+			...claims,
+			createdAt: new Date(),
+			group: 1,
+		});
+		const token = await createToken(claims);
+		return constructResponse(200)(ctx, {token})
 	}
 	return handleNext(next, ctx);
 }

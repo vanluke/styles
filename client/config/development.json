@@ -3,6 +3,15 @@
 		"assets": "assets",
 		"fonts": "assets/fonts"
 	},
+	"apiRoutes": {
+		"rootApi": "https://localhost:4443/api",
+		"version": "v0",
+		"token": "signup",
+		"register": "signup"
+	},
+	"storage": {
+		"token": "$#!nam"
+	},
 	"fontName": "PTS",
 	"containerId": "container"
 }

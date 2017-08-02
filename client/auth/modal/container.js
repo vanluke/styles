@@ -9,6 +9,7 @@ import {
 } from 'auth/state';
 
 export const ModalContainer = ({
+	onDismiss,
 	onLogin,
 	onSignup,
 	isSignupVisible,
@@ -17,6 +18,7 @@ export const ModalContainer = ({
 	switchState,
 	onAfterAction,
 }) => (<ModalComponent
+	onOverlayClick={onDismiss}
 	onLogin={onLogin}
 	onSignup={onSignup}
 	isSignupVisible={isSignupVisible}
@@ -32,6 +34,7 @@ ModalContainer.propTypes = {
 	isLoginVisible: PropTypes.bool.isRequired,
 	isVisible: PropTypes.bool.isRequired,
 	switchState: PropTypes.func.isRequired,
+	onDismiss: PropTypes.func.isRequired,
 };
 
 export const mapStateToProps = (state, props) => ({
@@ -40,6 +43,7 @@ export const mapStateToProps = (state, props) => ({
 	isVisible: props.isVisible,
 	afterLogin: props.afterLogin,
 	afterSignup: props.afterSignup,
+	onDismiss: props.onDismiss,
 });
 
 export const mapDispatchToProps = dispatch => ({

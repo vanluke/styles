@@ -12,13 +12,14 @@ import {
 import {Login} from 'auth/login';
 
 export const ModalComponent = ({
+	onOverlayClick,
 	isLoginVisible,
 	isVisible,
 	isSignupVisible,
 	onLogin,
 	onSignup,
 	switchState,
-}) => (<Modal isVisible={isVisible}>
+}) => (<Modal isVisible={isVisible} onClick={onOverlayClick}>
 	<ModalBox>
 		<ModalSwitchList>
 			<ModalSwitchListItem>
@@ -45,4 +46,5 @@ ModalComponent.propTypes = {
 	onSignup: PropTypes.func.isRequired,
 	switchState: PropTypes.func.isRequired,
 	onLogin: PropTypes.func.isRequired,
+	onOverlayClick: PropTypes.func.isRequired,
 };

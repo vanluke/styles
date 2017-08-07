@@ -69,6 +69,39 @@ export const ModalBackdrop = styled.section`
 	cursor: pointer;
 	`;
 
+export const ModalClose = styled.button`
+	position: absolute;
+	right: .5rem;
+	top: .5rem;
+	background: transparent;
+	border: 0;
+	outline: none;
+`;
+
+export const ModalCloseIcon = styled.span`
+	cursor:pointer;
+  &:after, &:before {
+    content: '';
+    height:20px;
+    width:20px;
+    border-top:1px solid #000;
+    position: absolute;
+    top:7px;
+    right:-8px;
+    transform: rotate(-45deg);
+  }
+
+  &:before {
+    right:6px;
+    transform: rotate(45deg);
+  }
+
+  &:hover {
+ 		opacity: .3;
+  }
+`;
+
+
 export const ModalSwitchListItem = styled.li`
 	width: 50%;
 	display: inline-block;

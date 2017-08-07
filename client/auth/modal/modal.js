@@ -8,6 +8,7 @@ import {
 	ModalSwitchList,
 	ModalSwitchListItem,
 	ModalTab,
+	ModalBackdrop,
 } from './modal-styled';
 import {Login} from 'auth/login';
 import {Signup} from 'auth/signup';
@@ -20,7 +21,8 @@ export const ModalComponent = ({
 	onLogin,
 	onSignup,
 	switchState,
-}) => (<Modal isVisible={isVisible} onClick={onOverlayClick}>
+}) => (<Modal isVisible={isVisible}>
+	<ModalBackdrop isVisible={isVisible} onClick={onOverlayClick} />
 	<ModalBox>
 		<ModalSwitchList>
 			<ModalSwitchListItem>

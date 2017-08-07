@@ -51,9 +51,9 @@ export class Home extends PureComponent {
 
 	onDismiss = () => {
 		const {toggleModal} = this.props;
-		// toggleModal({
-		// 	isModalVisible: false,
-		// });
+		toggleModal({
+			isModalVisible: false,
+		});
 	}
 
 	render() {

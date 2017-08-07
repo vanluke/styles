@@ -6,8 +6,9 @@
 	"apiRoutes": {
 		"rootApi": "https://localhost:4443/api",
 		"version": "v0",
-		"token": "signup",
-		"register": "signup"
+		"token": "login",
+		"signup": "signup"
+
 	},
 	"storage": {
 		"token": "$#!nam"

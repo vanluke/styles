@@ -10,6 +10,7 @@ import {
 	ModalTab,
 } from './modal-styled';
 import {Login} from 'auth/login';
+import {Signup} from 'auth/signup';
 
 export const ModalComponent = ({
 	onOverlayClick,
@@ -35,7 +36,8 @@ export const ModalComponent = ({
 				})} selected={isSignupVisible}>New account</ModalSwitchLink>
 			</ModalSwitchListItem>
 		</ModalSwitchList>
-		<Login onSubmit={onLogin} isVisible={isLoginVisible}/>
+		<Login onSubmit={onLogin} isVisible={isLoginVisible} />
+		<Signup onSubmit={onSignup} isVisible={isSignupVisible} />
 	</ModalBox>
 </Modal>);
 

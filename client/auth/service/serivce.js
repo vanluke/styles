@@ -7,7 +7,13 @@ Lockr.prefix = 'st-app';
 
 export const authService = {
 	getToken({payload}) {
-		return ajax.post(`${config.apiRoutes.rootApi}/${config.apiRoutes.token}`, {...payload}, {
+		return ajax.post(`${config.apiRoutes.rootApi}/${config.apiRoutes.token}`, {name: payload.name, password: payload.password}, {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Access-Control-Allow-Origin': '*',
+		});
+	},
+	createUser({ payload }) {
+		return ajax.post(`${config.apiRoutes.rootApi}/${config.apiRoutes.signup}`, { ...payload }, {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			'Access-Control-Allow-Origin': '*',
 		});
@@ -17,6 +23,7 @@ export const authService = {
 		return token;
 	},
 	getTokenFromStorage() {
+		console.log(Lockr.get(config.storage.token));
 		return Lockr.get(config.storage.token);
 	},
 	decodeToken(token) {

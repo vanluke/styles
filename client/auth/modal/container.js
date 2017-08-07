@@ -4,7 +4,7 @@ import {ModalComponent} from './modal';
 import {connect} from 'react-redux';
 import {
 	loginStart,
-	signup,
+	signupStart,
 	switchTab,
 } from 'auth/state';
 
@@ -48,7 +48,7 @@ export const mapStateToProps = (state, props) => ({
 
 export const mapDispatchToProps = dispatch => ({
 	onLogin: (data, cb) => dispatch(loginStart({...data, cb})),
-	onSignup: (data, cb) => dispatch(signup({...data, cb})),
+	onSignup: (data, cb) => dispatch(signupStart({...data, cb})),
 	switchState: st => dispatch(switchTab(st)),
 });
 

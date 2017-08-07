@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Field, reduxForm} from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import {
 	AuthContainer,
 	AuthForm,
@@ -19,8 +19,19 @@ import {
 	FormField,
 } from 'auth/form';
 
-export const Login = ({handleSubmit, isVisible}) => (<AuthContainer isVisible={isVisible}>
+export const Signup = ({ handleSubmit, isVisible }) => (<AuthContainer isVisible={isVisible}>
 	<AuthForm onSubmit={handleSubmit}>
+		<Field
+			component={FormField}
+			name="email"
+			id="email"
+			type="email"
+			fullWidth
+			hasPadding
+			placeholder="E-mail"
+			label="E-mail"
+		/>
+
 		<Field
 			component={FormField}
 			name="name"
@@ -31,6 +42,18 @@ export const Login = ({handleSubmit, isVisible}) => (<AuthContainer isVisible={i
 			placeholder="Name"
 			label="Name"
 		/>
+
+		<Field
+			component={FormField}
+			name="dateOfBirth"
+			id="dateOfBirth"
+			type="text"
+			fullWidth
+			hasPadding
+			placeholder="DD-MM-YYYY"
+			label="Date Of Birth"
+		/>
+
 		<Field
 			component={FormField}
 			id="password"
@@ -43,23 +66,27 @@ export const Login = ({handleSubmit, isVisible}) => (<AuthContainer isVisible={i
 		/>
 
 		<Field
-			component={FormCheckbox}
-			id="remember-me"
-			name="rememberMe"
-			text="Remember me"
+			component={FormField}
+			id="repassword"
+			name="repassword"
+			type="password"
+			fullWidth
+			hasPadding
+			placeholder="Retype password"
+			label="Retype password"
 		/>
 
 		<AuthFieldset>
-			<AuthButton type="submit">Login</AuthButton>
+			<AuthButton type="submit">Signup</AuthButton>
 		</AuthFieldset>
 	</AuthForm>
-	</AuthContainer>);
+</AuthContainer>);
 
-Login.propTypes = {
+Signup.propTypes = {
 	handleSubmit: PropTypes.func.isRequired,
 	isVisible: PropTypes.bool.isRequired,
 };
 
 export default reduxForm({
-	form: 'loginForm',
-})(Login);
+	form: 'signupForm',
+})(Signup);

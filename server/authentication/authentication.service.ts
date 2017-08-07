@@ -11,7 +11,7 @@ export const dbSource = connect(uriAuth);
 
 export const createToken = async claims =>
   await jsonwebtoken.sign({
-			name: claims.username,
+			name: claims.name,
 			email: claims.email,
 			dataOfBirth: claims.dataOfBirth,
 			group: claims.group,
@@ -36,21 +36,22 @@ export const insertUser = (db, user) => new Promise((resolve, reject) =>
 		})
 );
 
-export const getUser = (db, {username}) => new Promise((resolve, reject) =>
-	 db.collection('user').findOne({username}, (err, user) =>
+export const getUser = (db, {name}) => new Promise((resolve, reject) =>
+	 db.collection('user').findOne({name}, (err, user) =>
 	 	 (err ? reject(err) : resolve(user)),
 	));
 
-export const authUser = async ({username, password}) => {
+export const authUser = async ({name, password}) => {
 	try {
 		const dbUser = <IUser>(await dbSource(getUser)({
-			username,
+			name,
 		}));
+		if (!dbUser) {
+			return;
+		}
 		const isPasswordCorrect = await bcrypt.compare(password, dbUser.password);
 		if(!isPasswordCorrect) {
-			throw {
-				message: 'Passwrod or username is not correct',
-			}
+			return;
 		}
 		return new ApplicationUser(dbUser);
 	} catch(e) {
@@ -59,14 +60,21 @@ export const authUser = async ({username, password}) => {
 	}
 };
 
-export const createUser = async ({username, password}) => {
+export const createUser = async ({name, password}) => {
 	try {
 		return await dbSource(insertUser)({
-			username,
+			name,
 			password: bcrypt.hashSync(password, SALT),
 		});
 	} catch(e) {
-		console.log(e);
+		console.error(e);
 		throw e;
 	}
 };
+
+export const isUniqueUserName = async(name: string) => {
+	const result = <IUser>(await dbSource(getUser)({
+		name,
+	}));
+	return !result || !result._id;
+}

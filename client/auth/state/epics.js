@@ -34,16 +34,19 @@ export const signupStart = createAction(SIGNUP);
 export const signupSuccess = createAction(SIGNUP_SUCCESS);
 export const signupFails = createAction(SIGNUP_FAILS);
 
-export const signup = (action$, store, {authService}) =>
-   action$.ofType(LOGIN)
+export const signup = (action$, store, { authService }) =>
+	action$.ofType(SIGNUP)
 		.mergeMap(action => authService.createUser(action)
 			.catch((error) => {
 				action.payload.cb(error);
 				return signupFails(error);
 			})
-			.map((response) => {
-				action.payload.cb(response);
-				return signupSuccess(response);
+			.map(({ response }) => response.token)
+			.map(response => authService.saveTokenToSessionStorage(response))
+			.map(response => authService.decodeToken(response))
+			.map(user => {
+				action.payload.cb(user);
+				return signupSuccess(user);
 			}));
 
 export const switchTab = createAction(SWITCH_TAB);

@@ -84,11 +84,11 @@ export const ModalBox = styled.div`
 	width: 90%;
 	max-width: 600px;
 	background: #FFF;
-	margin: 3em auto 4em;
+	margin: 3rem auto 4rem;
 	cursor: auto;
 	${borderRadious()}
-	transform: translateY(50%);
-	height: 50%;
+	transform: translateY(0);
+	height: 70%;
 	transition: transform .3s ease-in;
 
 	${media.S`

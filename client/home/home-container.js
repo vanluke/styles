@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {HomeWrapper} from './home-wrapper';
 import {connect} from 'react-redux';
+import {reset} from 'redux-form';
 import NavBar from 'nav-bar';
 import Modal from 'auth/modal';
 import {
@@ -29,27 +30,30 @@ export class Home extends PureComponent {
 	}
 
 	onLogin = (user) => {
-		const {toggleModal, storeUser} = this.props;
+		const {toggleModal, storeUser, resetLoginForm} = this.props;
 		toggleModal({
 			isModalVisible: false,
 		});
 		storeUser({
 			user,
 		});
+		resetLoginForm();
+
 	}
 
 	onSignup = () => {
-		const {toggleModal} = this.props;
+		const {toggleModal, resetSignupForm} = this.props;
 		toggleModal({
 			isModalVisible: false,
 		});
+		resetSignupForm();
 	}
 
 	onDismiss = () => {
 		const {toggleModal} = this.props;
-		toggleModal({
-			isModalVisible: false,
-		});
+		// toggleModal({
+		// 	isModalVisible: false,
+		// });
 	}
 
 	render() {
@@ -58,13 +62,13 @@ export class Home extends PureComponent {
 			<NavBar
 				onLoginClick={() => this.openModal()}
 			/>
-			{isAuthenticated ? 'Welcome!' : 'Say Hi!'}
-			{!isAuthenticated && (<Modal
+			{isAuthenticated ? `Welcome! ${user.name}` : 'Say Hi!'}
+			<Modal
 				onDismiss={this.onDismiss}
 				afterLogin={this.onLogin}
 				afterSignup={this.onSignup}
 				isVisible={isModalVisible}
-			/>)}
+			/>
 		</div>);
 	}
 }
@@ -74,6 +78,8 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
 	initialize: data => dispatch(initHomeState(data)),
 	toggleModal: data => dispatch(toggleModalIsVisible(data)),
 	service: homeService,
+	resetLoginForm: () => dispatch(reset('loginForm')),
+	resetSignupForm: () => dispatch(reset('signupForm')),
 });
 
 export const mapStateToProps = (state, props) => ({

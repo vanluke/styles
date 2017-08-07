@@ -1,5 +1,5 @@
 import {reducer} from './reducer';
-export {loginStart, login, signup, switchTab} from './epics';
+export { loginStart, login, signupStart, switchTab} from './epics';
 
 export default reducer;
 

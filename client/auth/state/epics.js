@@ -9,6 +9,7 @@ import {
 	SIGNUP_SUCCESS,
 	SIGNUP_FAILS,
 	SWITCH_TAB,
+	INIT_APP_STATE,
 } from './constants';
 
 export const loginStart = createAction(LOGIN);
@@ -50,3 +51,4 @@ export const signup = (action$, store, { authService }) =>
 			}));
 
 export const switchTab = createAction(SWITCH_TAB);
+export const initApplicationState = createAction(INIT_APP_STATE);

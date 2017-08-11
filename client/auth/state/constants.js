@@ -5,3 +5,4 @@ export const SIGNUP = 'st-app/auth/signup-start';
 export const SIGNUP_SUCCESS = 'st-app/auth/signup-success';
 export const SIGNUP_FAILS = 'st-app/auth/signup-fails';
 export const SWITCH_TAB = 'st-app/auth/switch-tabs';
+export const INIT_APP_STATE = 'st-app/auth/authenitcate-init';

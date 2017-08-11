@@ -7,6 +7,7 @@ import {
 	SIGNUP_SUCCESS,
 	SIGNUP_FAILS,
 	SWITCH_TAB,
+	INIT_APP_STATE,
 } from './constants';
 import {initState} from './state';
 
@@ -28,4 +29,7 @@ export const authReducer = mapToReducer({
 		[SWITCH_TAB]: (state, { payload }) => state
 					.set('isLoginVisible', payload.isLoginVisible)
 					.set('isSignupVisible', payload.isSignupVisible),
+		[INIT_APP_STATE]: (state, { payload }) => state
+			.set('isAuthenticated', !!payload.user)
+			.set('user', payload.user),
   })(initState);

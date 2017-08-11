@@ -13,13 +13,15 @@ import {
 	homeService
 } from 'home/service';
 export class Home extends PureComponent {
-	componentWillMount() {
-		const {initialize, service} = this.props;
+	componentDidMount() {
+		const {initialize, service, resetSignupForm, resetLoginForm} = this.props;
 		const state = service.getUser();
 		initialize({
 			isAuthenticated: state.isAuthenticated,
 			user: state.user,
 		});
+		resetLoginForm();
+		resetSignupForm();
 	}
 
 	openModal() {

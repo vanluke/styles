@@ -17,6 +17,9 @@ import {
 import {
 	FormCheckbox,
 	FormField,
+	required,
+	minLength6,
+	minLength12,
 } from 'auth/form';
 
 export const Login = ({handleSubmit, isVisible}) => (<AuthContainer isVisible={isVisible}>
@@ -28,8 +31,10 @@ export const Login = ({handleSubmit, isVisible}) => (<AuthContainer isVisible={i
 			type="text"
 			fullWidth
 			hasPadding
+			icon="username"
 			placeholder="Name"
 			label="Name"
+			validate={[required, minLength6]}
 		/>
 		<Field
 			component={FormField}
@@ -40,6 +45,7 @@ export const Login = ({handleSubmit, isVisible}) => (<AuthContainer isVisible={i
 			hasPadding
 			placeholder="Password"
 			label="Password"
+			validate={[required, minLength12]}
 		/>
 
 		<Field

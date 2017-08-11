@@ -14,5 +14,7 @@
 		"token": "$#!nam"
 	},
 	"fontName": "PTS",
-	"containerId": "container"
+	"containerId": "container",
+	"dateFormat": "DD-MM-YYYY"
+
 }

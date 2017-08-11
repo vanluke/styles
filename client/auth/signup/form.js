@@ -17,7 +17,14 @@ import {
 import {
 	FormCheckbox,
 	FormField,
+	FormDatePicker,
+	required,
+	minLength6,
+	email,
+	minLength12,
+	date,
 } from 'auth/form';
+import {validate} from './validate';
 
 export const Signup = ({ handleSubmit, isVisible }) => (<AuthContainer isVisible={isVisible}>
 	<AuthForm onSubmit={handleSubmit}>
@@ -30,6 +37,7 @@ export const Signup = ({ handleSubmit, isVisible }) => (<AuthContainer isVisible
 			hasPadding
 			placeholder="E-mail"
 			label="E-mail"
+			validate={[required, email]}
 		/>
 
 		<Field
@@ -38,13 +46,15 @@ export const Signup = ({ handleSubmit, isVisible }) => (<AuthContainer isVisible
 			id="name"
 			type="text"
 			fullWidth
+			icon="username"
 			hasPadding
 			placeholder="Name"
 			label="Name"
+			validate={[required, minLength6]}
 		/>
 
 		<Field
-			component={FormField}
+			component={FormDatePicker}
 			name="dateOfBirth"
 			id="dateOfBirth"
 			type="text"
@@ -52,6 +62,7 @@ export const Signup = ({ handleSubmit, isVisible }) => (<AuthContainer isVisible
 			hasPadding
 			placeholder="DD-MM-YYYY"
 			label="Date Of Birth"
+			validate={[required, date]}
 		/>
 
 		<Field
@@ -63,6 +74,7 @@ export const Signup = ({ handleSubmit, isVisible }) => (<AuthContainer isVisible
 			hasPadding
 			placeholder="Password"
 			label="Password"
+			validate={[required]}
 		/>
 
 		<Field
@@ -74,6 +86,7 @@ export const Signup = ({ handleSubmit, isVisible }) => (<AuthContainer isVisible
 			hasPadding
 			placeholder="Retype password"
 			label="Retype password"
+			validate={[required]}
 		/>
 
 		<AuthFieldset>
@@ -89,4 +102,13 @@ Signup.propTypes = {
 
 export default reduxForm({
 	form: 'signupForm',
+	touchOnChange: true,
+	validate,
+	initialValues: {
+		password: '',
+		email: '',
+		repassowrd: '',
+		dateOfBirth: '',
+		name: '',
+	},
 })(Signup);

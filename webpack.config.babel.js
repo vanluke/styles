@@ -20,7 +20,8 @@ const entry = {
     'react-router',
     'redux',
     'redux-observable',
-    //'rxjs',
+		'moment',
+		'react-datepicker',
    // 'superagent',
   ],
   main: process.env.NODE_ENV !== 'dev'

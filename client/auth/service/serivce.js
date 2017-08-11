@@ -23,7 +23,6 @@ export const authService = {
 		return token;
 	},
 	getTokenFromStorage() {
-		console.log(Lockr.get(config.storage.token));
 		return Lockr.get(config.storage.token);
 	},
 	decodeToken(token) {

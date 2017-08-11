@@ -4,6 +4,7 @@ import {
 	AuthFieldset,
 	AuthLabel,
 	AuthInput,
+	AuthErrorMessage,
 } from 'auth/form-styled';
 
 export const FormField = ({
@@ -15,8 +16,10 @@ export const FormField = ({
 	placeholder,
 	label,
 	input,
+	meta,
+	icon,
 }) => (<AuthFieldset>
-		<AuthLabel labelType={type} htmlFor={id}>{label}</AuthLabel>
+		<AuthLabel labelType={icon || type} htmlFor={id}>{label}</AuthLabel>
 		<AuthInput
 			fullWidth={fullWidth}
 			hasPadding={hasPadding}
@@ -25,10 +28,11 @@ export const FormField = ({
 			placeholder={placeholder}
 			{...input}
 		></AuthInput>
+		{meta.touched && meta.error
+			&& (<AuthErrorMessage isVisible={meta.touched && meta.error}>{meta.error}</AuthErrorMessage>)}
 	</AuthFieldset>);
 
 FormField.propTypes = {
-	text: PropTypes.string.isRequired,
 	id: PropTypes.string.isRequired,
 	input: PropTypes.shape({
 		onChange: PropTypes.func,
@@ -39,7 +43,7 @@ FormField.propTypes = {
 		})
 	}).isRequired,
 	type: PropTypes.string.isRequired,
-	name: PropTypes.string.isRequired,
+	name: PropTypes.string,
 	fullWidth: PropTypes.bool.isRequired,
 	hasPadding: PropTypes.bool.isRequired,
 	placeholder: PropTypes.string.isRequired,
@@ -47,4 +51,15 @@ FormField.propTypes = {
 		PropTypes.string,
 		PropTypes.node,
 	]).isRequired,
-}
+	meta: PropTypes.shape({
+		error: PropTypes.string,
+		warning: PropTypes.string,
+		touched: PropTypes.bool,
+	}).isRequired,
+	icon: PropTypes.string,
+};
+
+FormField.defaultProps = {
+	icon: '',
+	name: '',
+};

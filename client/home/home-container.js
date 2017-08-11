@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {HomeWrapper} from './home-wrapper';
 import {connect} from 'react-redux';
+import {reset} from 'redux-form';
 import NavBar from 'nav-bar';
 import Modal from 'auth/modal';
 import {
@@ -12,13 +13,15 @@ import {
 	homeService
 } from 'home/service';
 export class Home extends PureComponent {
-	componentWillMount() {
-		const {initialize, service} = this.props;
+	componentDidMount() {
+		const {initialize, service, resetSignupForm, resetLoginForm} = this.props;
 		const state = service.getUser();
 		initialize({
 			isAuthenticated: state.isAuthenticated,
 			user: state.user,
 		});
+		resetLoginForm();
+		resetSignupForm();
 	}
 
 	openModal() {
@@ -29,20 +32,23 @@ export class Home extends PureComponent {
 	}
 
 	onLogin = (user) => {
-		const {toggleModal, storeUser} = this.props;
+		const {toggleModal, storeUser, resetLoginForm} = this.props;
 		toggleModal({
 			isModalVisible: false,
 		});
 		storeUser({
 			user,
 		});
+		resetLoginForm();
+
 	}
 
 	onSignup = () => {
-		const {toggleModal} = this.props;
+		const {toggleModal, resetSignupForm} = this.props;
 		toggleModal({
 			isModalVisible: false,
 		});
+		resetSignupForm();
 	}
 
 	onDismiss = () => {
@@ -58,13 +64,13 @@ export class Home extends PureComponent {
 			<NavBar
 				onLoginClick={() => this.openModal()}
 			/>
-			{isAuthenticated ? 'Welcome!' : 'Say Hi!'}
-			{!isAuthenticated && (<Modal
+			{isAuthenticated ? `Welcome! ${user.name}` : 'Say Hi!'}
+			<Modal
 				onDismiss={this.onDismiss}
 				afterLogin={this.onLogin}
 				afterSignup={this.onSignup}
 				isVisible={isModalVisible}
-			/>)}
+			/>
 		</div>);
 	}
 }
@@ -74,6 +80,8 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
 	initialize: data => dispatch(initHomeState(data)),
 	toggleModal: data => dispatch(toggleModalIsVisible(data)),
 	service: homeService,
+	resetLoginForm: () => dispatch(reset('loginForm')),
+	resetSignupForm: () => dispatch(reset('signupForm')),
 });
 
 export const mapStateToProps = (state, props) => ({

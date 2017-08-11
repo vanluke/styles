@@ -2,63 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Field, reduxForm} from 'redux-form';
 import {
-	LoginContainer,
-	LoginForm,
-	LoginFieldset,
-	LoginLabel,
-	LoginPasswordLabel,
-	LoginUsernameLabel,
-	LoginInput,
-	LoginErrorMessage,
-	LoginCheckbox,
-	LoginCheckboxLabel,
-	LoginButton,
-} from './form-styled';
+	AuthContainer,
+	AuthForm,
+	AuthFieldset,
+	AuthLabel,
+	AuthPasswordLabel,
+	AuthUsernameLabel,
+	AuthInput,
+	AuthErrorMessage,
+	AuthCheckbox,
+	AuthCheckboxLabel,
+	AuthButton,
+} from 'auth/form-styled';
+import {
+	FormCheckbox,
+	FormField,
+	required,
+	minLength6,
+	minLength12,
+} from 'auth/form';
 
-export const FormField = ({
-	id,
-	type,
-	name,
-	fullWidth,
-	hasPadding,
-	placeholder,
-	label,
-	input,
-}) => (<LoginFieldset>
-	<LoginLabel labelType={type} htmlFor={id}>{label}</LoginLabel>
-	<LoginInput
-		fullWidth={fullWidth}
-		hasPadding={hasPadding}
-		id={id}
-		type={type}
-		placeholder={placeholder}
-		{...input}
-	></LoginInput>
-</LoginFieldset>);
-export const FormCheckbox = ({
-	text,
-	id,
-	input,
-}) => (<LoginFieldset>
-	<LoginCheckbox
-		type="checkbox"
-		id={id}
-		{...input}
-	/>
-	<LoginCheckboxLabel htmlFor={id}>{text}</LoginCheckboxLabel>
-</LoginFieldset>);
-
-export const Login = ({handleSubmit, isVisible}) => (<LoginContainer isVisible={isVisible}>
-	<LoginForm onSubmit={handleSubmit}>
+export const Login = ({handleSubmit, isVisible}) => (<AuthContainer isVisible={isVisible}>
+	<AuthForm onSubmit={handleSubmit}>
 		<Field
 			component={FormField}
-			name="email"
-			id="email"
-			type="email"
+			name="name"
+			id="name"
+			type="text"
 			fullWidth
 			hasPadding
-			placeholder="E-mail"
-			label="E-mail"
+			icon="username"
+			placeholder="Name"
+			label="Name"
+			validate={[required, minLength6]}
 		/>
 		<Field
 			component={FormField}
@@ -69,6 +45,7 @@ export const Login = ({handleSubmit, isVisible}) => (<LoginContainer isVisible={
 			hasPadding
 			placeholder="Password"
 			label="Password"
+			validate={[required, minLength12]}
 		/>
 
 		<Field
@@ -78,11 +55,11 @@ export const Login = ({handleSubmit, isVisible}) => (<LoginContainer isVisible={
 			text="Remember me"
 		/>
 
-		<LoginFieldset>
-			<LoginButton type="submit">Login</LoginButton>
-		</LoginFieldset>
-	</LoginForm>
-	</LoginContainer>);
+		<AuthFieldset>
+			<AuthButton type="submit">Login</AuthButton>
+		</AuthFieldset>
+	</AuthForm>
+	</AuthContainer>);
 
 Login.propTypes = {
 	handleSubmit: PropTypes.func.isRequired,

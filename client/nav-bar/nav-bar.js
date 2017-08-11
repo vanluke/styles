@@ -13,8 +13,9 @@ export const NavBar = ({onLoginClick}) => (<Nav>
 					onClick={onLoginClick}
 					activeClassName="active"
 				>
-					Login
+					Login | Signup
 				</A>
+
 			</Li>
 		</Ul>
 	</Nav>);

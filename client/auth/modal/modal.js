@@ -8,8 +8,12 @@ import {
 	ModalSwitchList,
 	ModalSwitchListItem,
 	ModalTab,
+	ModalBackdrop,
+	ModalClose,
+	ModalCloseIcon,
 } from './modal-styled';
 import {Login} from 'auth/login';
+import {Signup} from 'auth/signup';
 
 export const ModalComponent = ({
 	onOverlayClick,
@@ -19,8 +23,12 @@ export const ModalComponent = ({
 	onLogin,
 	onSignup,
 	switchState,
-}) => (<Modal isVisible={isVisible} onClick={onOverlayClick}>
+}) => (<Modal isVisible={isVisible}>
+	<ModalBackdrop isVisible={isVisible} onClick={onOverlayClick} />
 	<ModalBox>
+		<ModalClose onClick={onOverlayClick}>
+			<ModalCloseIcon />
+		</ModalClose>
 		<ModalSwitchList>
 			<ModalSwitchListItem>
 				<ModalSwitchLink onClick={() => switchState({
@@ -35,7 +43,8 @@ export const ModalComponent = ({
 				})} selected={isSignupVisible}>New account</ModalSwitchLink>
 			</ModalSwitchListItem>
 		</ModalSwitchList>
-		<Login onSubmit={onLogin} isVisible={isLoginVisible}/>
+		<Login onSubmit={onLogin} isVisible={isLoginVisible} />
+		<Signup onSubmit={onSignup} isVisible={isSignupVisible} />
 	</ModalBox>
 </Modal>);
 

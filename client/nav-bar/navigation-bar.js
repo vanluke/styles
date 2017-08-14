@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import { reset } from 'redux-form';
 import {connect} from 'react-redux';
 import Modal from 'auth/modal';
 import {
@@ -7,6 +8,9 @@ import {
 	toggleModalIsVisible,
 	persistRemoteUser,
 } from 'nav-bar/state';
+import {
+	logoutStart,
+} from 'auth/state';
 import {NavBar} from './components/nav-bar';
 
 export class NavigationBar extends PureComponent {
@@ -44,6 +48,11 @@ export class NavigationBar extends PureComponent {
 		});
 	}
 
+	onLogout = () => {
+		const { logout } = this.props;
+		logout();
+	}
+
 	render() {
 		const {user, isAuthenticated, isModalVisible} = this.props;
 		return (<div>
@@ -51,6 +60,7 @@ export class NavigationBar extends PureComponent {
 				isAuthenticated={isAuthenticated}
 				user={user}
 				onLoginClick={() => this.openModal()}
+				onLogoutClick={() => this.onLogout()}
 			/>
 			<Modal
 				onDismiss={this.onDismiss}
@@ -72,10 +82,12 @@ NavigationBar.propTypes = {
 	user: PropTypes.shape({
 
 	}).isRequired,
+	logout: PropTypes.func.isRequired,
 };
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
 	storeUser: user => dispatch(persistRemoteUser(user)),
+	logout: () => dispatch(logoutStart()),
 	toggleModal: data => dispatch(toggleModalIsVisible(data)),
 	resetLoginForm: () => dispatch(reset('loginForm')),
 	resetSignupForm: () => dispatch(reset('signupForm')),

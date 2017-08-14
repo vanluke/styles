@@ -1,9 +1,11 @@
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import {ajax} from 'rxjs/observable/dom/ajax';
 import Lockr from 'lockr';
 import decode from 'jwt-decode';
 import config from 'config/config';
 
-Lockr.prefix = 'st-app';
+//Lockr.prefix = 'st-app';
 
 export const authService = {
 	getToken({payload}) {
@@ -28,4 +30,12 @@ export const authService = {
 	decodeToken(token) {
 		return token && decode(token);
 	},
+	logout() {
+		const user = this.decodeToken(this.getTokenFromStorage());
+		Lockr.rm(config.storage.token);
+		return Observable.of(user);
+	},
+	get isAuthenticated() {
+		return !!Lockr.get(config.storage.token);
+	}
 };

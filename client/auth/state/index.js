@@ -5,6 +5,7 @@ export {
 	signupStart,
 	switchTab,
 	initApplicationState,
+	logoutStart,
 } from './epics';
 
 export default reducer;

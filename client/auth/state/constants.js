@@ -6,3 +6,6 @@ export const SIGNUP_SUCCESS = 'st-app/auth/signup-success';
 export const SIGNUP_FAILS = 'st-app/auth/signup-fails';
 export const SWITCH_TAB = 'st-app/auth/switch-tabs';
 export const INIT_APP_STATE = 'st-app/auth/authenitcate-init';
+export const LOGOUT = 'st-app/auth/logout';
+export const LOGOUT_FAILS = 'st-app/auth/logout_fails';
+export const LOGOUT_SUCCESS = 'st-app/auth/logout_success';

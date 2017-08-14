@@ -6,4 +6,5 @@ export const initState = Immutable({
 	error: undefined,
 	isLoginVisible: true,
 	isSignupVisible: false,
+	isAuthenticated: false,
 });

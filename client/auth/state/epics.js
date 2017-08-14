@@ -9,6 +9,10 @@ import {
 	SIGNUP_SUCCESS,
 	SIGNUP_FAILS,
 	SWITCH_TAB,
+	INIT_APP_STATE,
+	LOGOUT,
+	LOGOUT_FAILS,
+	LOGOUT_SUCCESS,
 } from './constants';
 
 export const loginStart = createAction(LOGIN);
@@ -20,14 +24,14 @@ export const login = (action$, store, {authService}) =>
 		.mergeMap(action => authService.getToken(action)
 			.catch((error) => {
 				action.payload.cb(error);
-				return loginFails(error);
+				return loginFails({error});
 			})
 			.map(({response}) => response.token)
 			.map(response => authService.saveTokenToSessionStorage(response))
 			.map(response => authService.decodeToken(response))
 			.map(user => {
 				action.payload.cb(user);
-				return loginSuccess(user);
+				return loginSuccess({user});
 			}));
 
 export const signupStart = createAction(SIGNUP);
@@ -39,14 +43,25 @@ export const signup = (action$, store, { authService }) =>
 		.mergeMap(action => authService.createUser(action)
 			.catch((error) => {
 				action.payload.cb(error);
-				return signupFails(error);
+				return signupFails({error});
 			})
 			.map(({ response }) => response.token)
 			.map(response => authService.saveTokenToSessionStorage(response))
 			.map(response => authService.decodeToken(response))
 			.map(user => {
 				action.payload.cb(user);
-				return signupSuccess(user);
+				return signupSuccess({user});
 			}));
 
 export const switchTab = createAction(SWITCH_TAB);
+export const initApplicationState = createAction(INIT_APP_STATE);
+
+export const logoutStart = createAction(LOGOUT);
+export const logoutSuccess = createAction(LOGOUT_SUCCESS);
+export const logoutFails = createAction(LOGOUT_FAILS);
+
+export const logout = (action$, store, { authService }) => action$.ofType(LOGOUT)
+		.mergeMap(() => authService.logout()
+		.catch(error => logoutFails({error}))
+		.map(() => logoutSuccess()));
+

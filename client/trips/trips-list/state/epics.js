@@ -1,4 +1,7 @@
 import {push} from 'react-router-dom';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 import {createAction, mapToReducer} from 'redux0-helpers';
 import {
 	values,
@@ -16,6 +19,10 @@ export const loadTripsFails = createAction(LOAD_TRIPS_FAILS);
 export const initializeTripsList = (action$, store, {tripsService}) =>
 	action$.ofType(LOAD_TRIPS_START)
 		.mergeMap(action => tripsService.getTrips()
-			.catch((error) => loadTripsFails({ error }))
 			.map(({ response }) => Array.from(values(response)))
-			.map(trips => loadTripsSuccess({ trips })));
+			.map(trips => loadTripsSuccess({ trips }))
+			.catch((error) => Observable.of(loadTripsFails({
+					error,
+				}))
+			)
+		);

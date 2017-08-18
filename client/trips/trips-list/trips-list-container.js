@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {TripsList, TripsSection} from 'trips/components/trips-list';
+import { TripsList, TripsContainer} from 'trips/components/trips-list';
 import {Loading} from 'common/components';
 import {
 	selectIsLoading,
@@ -17,12 +17,12 @@ export class TripsListContainer extends PureComponent {
 
 	render() {
 		const {trips, isLoading} = this.props;
-		return (<TripsSection>
+		return (<TripsContainer>
 			{isLoading && (<Loading />)}
 			<TripsList
 				trips={trips}
 			/>
-		</TripsSection>);
+		</TripsContainer>);
 	}
 }
 

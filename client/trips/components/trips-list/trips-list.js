@@ -9,6 +9,7 @@ export const TripsList = ({
 }) => (<TripsSection>
 		{trips.map(trip => (
 			<TripsItem
+				key={trip.guid}
 				{...trip}
 			/>
 		))}

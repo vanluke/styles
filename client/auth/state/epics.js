@@ -22,17 +22,18 @@ export const loginFails = createAction(LOGIN_FAILS);
 export const login = (action$, store, {authService}) =>
    action$.ofType(LOGIN)
 		.mergeMap(action => authService.getToken(action)
-			.catch((error) => {
-				action.payload.cb(error);
-				return loginFails({error});
-			})
 			.map(({response}) => response.token)
 			.map(response => authService.saveTokenToSessionStorage(response))
 			.map(response => authService.decodeToken(response))
 			.map(user => {
 				action.payload.cb(user);
 				return loginSuccess({user});
-			}));
+			})
+			.catch((error) => {
+				action.payload.cb(error);
+				return Observable.of(loginFails({ error }));
+			})
+		);
 
 export const signupStart = createAction(SIGNUP);
 export const signupSuccess = createAction(SIGNUP_SUCCESS);
@@ -41,17 +42,18 @@ export const signupFails = createAction(SIGNUP_FAILS);
 export const signup = (action$, store, { authService }) =>
 	action$.ofType(SIGNUP)
 		.mergeMap(action => authService.createUser(action)
-			.catch((error) => {
-				action.payload.cb(error);
-				return signupFails({error});
-			})
 			.map(({ response }) => response.token)
 			.map(response => authService.saveTokenToSessionStorage(response))
 			.map(response => authService.decodeToken(response))
 			.map(user => {
 				action.payload.cb(user);
-				return signupSuccess({user});
-			}));
+				return signupSuccess({user})
+			})
+			.catch((error) => {
+				action.payload.cb(error);
+				return Observable.of(signupFails({ error }));
+			})
+		);
 
 export const switchTab = createAction(SWITCH_TAB);
 export const initApplicationState = createAction(INIT_APP_STATE);
@@ -62,6 +64,7 @@ export const logoutFails = createAction(LOGOUT_FAILS);
 
 export const logout = (action$, store, { authService }) => action$.ofType(LOGOUT)
 		.mergeMap(() => authService.logout()
-		.catch(error => logoutFails({error}))
-		.map(() => logoutSuccess()));
+		.map(() => logoutSuccess())
+		.catch(error => logoutFails({ error }))
+	);
 

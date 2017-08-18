@@ -23,6 +23,5 @@ export const initializeTripsList = (action$, store, {tripsService}) =>
 			.map(trips => loadTripsSuccess({ trips }))
 			.catch((error) => Observable.of(loadTripsFails({
 					error,
-				}))
-			)
+				})))
 		);

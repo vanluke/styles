@@ -1,6 +1,7 @@
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {ajax} from 'rxjs/observable/dom/ajax';
+import {toastr} from 'react-redux-toastr';
 import Lockr from 'lockr';
 import decode from 'jwt-decode';
 import config from 'config/config';
@@ -12,13 +13,15 @@ export const authService = {
 		return ajax.post(`${config.apiRoutes.rootApi}/${config.apiRoutes.token}`, {name: payload.name, password: payload.password}, {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			'Access-Control-Allow-Origin': '*',
-		});
+		}).catch(e => toastr.error('Error while loading Signin!',
+			'An error occured. Please contanct with administrator!'));
 	},
 	createUser({ payload }) {
 		return ajax.post(`${config.apiRoutes.rootApi}/${config.apiRoutes.signup}`, { ...payload }, {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			'Access-Control-Allow-Origin': '*',
-		});
+		}).catch(e => toastr.error('Error while loading Signup!',
+			'An error occured. Please contanct with administrator!'));;
 	},
 	saveTokenToSessionStorage(token) {
 		Lockr.set(config.storage.token, token);

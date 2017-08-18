@@ -4,6 +4,7 @@ import {tripsListReducer} from 'trips/trips-list';
 import {authReducer} from 'auth/state/reducer';
 import {navReducer} from 'nav-bar';
 import {combineReducers} from 'redux';
+import {reducer as toastrReducer} from 'react-redux-toastr';
 
 export default combineReducers({
 	authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
 	form: formReducer,
 	homeReducer,
 	tripsList: tripsListReducer,
+	toastr: toastrReducer,
 });

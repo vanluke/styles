@@ -4,11 +4,12 @@ import {createStore, applyMiddleware} from 'redux';
 import rootReducer from 'reducer';
 import rootEpic from 'epic';
 import authService from 'auth/service';
+import {tripsService} from 'trips/service';
 import en from './dev-tools-extenstion';
 
 const loggerMiddleware = createLogger();
 const epicMiddleware = createEpicMiddleware(rootEpic, {
-	 dependencies: {authService},
+	dependencies: {authService, tripsService},
 });
 const createStoreWithMiddleware = applyMiddleware(epicMiddleware, loggerMiddleware)
 (createStore);

@@ -7,8 +7,8 @@
 		"rootApi": "https://localhost:4443/api",
 		"version": "v0",
 		"token": "login",
-		"signup": "signup"
-
+		"signup": "signup",
+		"trips": "trips"
 	},
 	"storage": {
 		"token": "$#!nam"

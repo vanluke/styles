@@ -2,9 +2,13 @@ import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {App} from './container';
+import {withRouter} from 'react-router-dom';
 import {
-	initApplicationState
+	initApplicationState,
 } from 'auth/state';
+import {
+	updateLocation as updateLocationAction,
+} from './state';
 import {
 	appService
 } from './app-service';
@@ -20,7 +24,8 @@ export class AppContainer extends PureComponent {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const {isAuthenticated, initialize} = this.props;
+		const {isAuthenticated, initialize, updateLocation} = this.props;
+		updateLocation(nextProps.location);
 		if (isAuthenticated !== nextProps.isAuthenticated) {
 			return initialize({
 				isAuthenticated: nextProps.isAuthenticated,
@@ -46,11 +51,13 @@ AppContainer.propTypes = {
 		getUser: PropTypes.func,
 	}).isRequired,
 	initialize: PropTypes.func.isRequired,
+	updateLocation: PropTypes.func.isRequired,
 };
 
 export const mapDispatchToProps = dispatch => ({
 	initialize: (data) => dispatch(initApplicationState(data)),
 	service: appService,
+	updateLocation: location => dispatch(updateLocationAction(location)),
 });
 
 export const mapStateToProps = ({authReducer}) => ({
@@ -58,4 +65,4 @@ export const mapStateToProps = ({authReducer}) => ({
 	isAuthenticated: authReducer.isAuthenticated,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppContainer));

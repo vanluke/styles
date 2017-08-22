@@ -3,8 +3,7 @@ import {Route, Switch} from 'react-router-dom';
 import AuthorizedRoute from './authorized-routes';
 import {App} from 'container';
 import Home from 'home/home-container';
-
-const Trips = () => (<div>Trips</div>);
+import {Trips} from 'trips/trips-list';
 
 export const routes = () => (
 	<App>

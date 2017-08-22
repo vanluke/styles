@@ -1,6 +1,7 @@
-import {Observable} from 'rxjs';
 import {createAction} from 'redux0-helpers';
-import 'rxjs/add/observable/dom/ajax';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 import {
   LOGIN,
 	LOGIN_SUCCESS,
@@ -22,7 +23,7 @@ export const loginFails = createAction(LOGIN_FAILS);
 export const login = (action$, store, {authService}) =>
    action$.ofType(LOGIN)
 		.mergeMap(action => authService.getToken(action)
-			.map(({response}) => response.token)
+			.map(({ response }) => response && response.token)
 			.map(response => authService.saveTokenToSessionStorage(response))
 			.map(response => authService.decodeToken(response))
 			.map(user => {

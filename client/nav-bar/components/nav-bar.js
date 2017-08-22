@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Nav} from './nav';
 import {Ul} from './ul';
-import {Li} from './li';
-import {ListLink} from './list-link';
-import {A} from './a';
+import {SecretListLink} from './secret-link';
+import {SecretNavButton}  from './secret-button';
+import {NavButton} from './nav-button';
 
 export const NavBar = ({
 	onLoginClick,
@@ -13,24 +13,27 @@ export const NavBar = ({
 	onLogoutClick,
 }) => (<Nav>
 		<Ul>
-			<Li>
-				<A
-					onClick={onLoginClick}
-					activeClassName="active"
-				>
-					Login | Signup
-				</A>
-			</Li>
-				{isAuthenticated && (<Li>
-						<A
-							onClick = {
-								onLogoutClick
-							}
-							activeClassName = "active"
-						>
-							Logout
-						</A>
-					</Li>)}
+			<NavButton
+				onClick={onLoginClick}
+				activeClassName="active"
+			>Login | Signup
+			</NavButton>
+			<SecretNavButton
+				isAuthenticated={isAuthenticated}
+				onClick={
+					onLogoutClick
+				}
+				activeClassName="active"
+			>
+				Logout
+			</SecretNavButton>
+			<SecretListLink
+				isAuthenticated={isAuthenticated}
+				to="/trips"
+				activeClassName="active"
+			>
+				Trips
+			</SecretListLink>
 		</Ul>
 		{isAuthenticated ? `Welcome ${user.name}!`: ''}
 	</Nav>);

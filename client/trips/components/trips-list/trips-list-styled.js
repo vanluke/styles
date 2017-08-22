@@ -6,6 +6,7 @@ export const tripsItemBoxShadowColor = 'rgba(0, 0, 0, .2)';
 
 export const TripsListContainer = styled.section`
 	max-width: 87.5rem;
+	margin: 0 auto;
 `;
 
 export const TripsSection = styled.section`

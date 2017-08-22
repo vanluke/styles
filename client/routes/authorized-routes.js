@@ -10,7 +10,7 @@ export const AuthorizedRoute = ({ logged, component: Component, ...rest }) => (
 			<Component {...props} />
 		) : (
 				<Redirect to={{
-					pathname: '/home',
+					pathname: 'home',
 					state: { from: props.location }
 				}} />
 			)
